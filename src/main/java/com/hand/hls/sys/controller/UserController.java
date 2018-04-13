@@ -24,6 +24,7 @@ public class UserController {
         if (user != null) {
             request.setAttribute("name", user.getUserName());
             model.addAttribute("name", user.getUserName());
+            model.addAttribute("test", "TEST");
             return "showName";
         }
         request.setAttribute("error", "没有找到该用户！");
