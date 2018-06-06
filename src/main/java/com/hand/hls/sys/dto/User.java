@@ -1,8 +1,10 @@
 package com.hand.hls.sys.dto;
 
 
+import java.io.Serializable;
 
-public class User {
+//为了使用Redis 需要 序列化 Bean
+public class User implements Serializable {
     private Integer id;
 
     private String userName;

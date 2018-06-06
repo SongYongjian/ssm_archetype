@@ -9,7 +9,13 @@
     </resultMap>
     <sql id="Base_Column_List">
     id, user_name, password, age
-  </sql>
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.hand.hls.sys.dto.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user_t
+    </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -17,15 +23,15 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_t
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from user_t
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.hand.hls.sys.dto.User">
-    insert into user_t (id, user_name, password, 
-      age)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER})
-  </insert>
+        insert into user_t (id, user_name, password,
+          age)
+        values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+          #{age,jdbcType=INTEGER})
+    </insert>
     <insert id="insertSelective" parameterType="com.hand.hls.sys.dto.User">
         insert into user_t
         <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -48,6 +48,8 @@
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.12</log4j.version>
         <mysql.version>5.1.46</mysql.version>
+        <jedis.version>2.9.0</jedis.version>
+        <spring.redis.version>1.7.0.RELEASE</spring.redis.version>
     </properties>
 
     <dependencies>
@@ -202,5 +204,30 @@
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
         </dependency>
+
+        <!--redis 依赖 -->
+       <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring.redis.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--redis 依赖 -->
+
+
     </dependencies>
 </project>

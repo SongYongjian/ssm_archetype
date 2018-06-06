@@ -1,4 +1,4 @@
-package com.hand.hls.sys.component;
+package com.hand.hls.util.component;
 
 import com.hand.hls.sys.dto.User;
 import org.aspectj.lang.JoinPoint;
@@ -55,8 +55,8 @@ public class LoggingAspect {
     public void afterReturning(JoinPoint joinPoint, Object returnVal) {
         String methodName = joinPoint.getSignature().getName();
         //返回值
-        User user = (User) returnVal;
-        System.out.println("方法有返回值后调用 The method " + methodName + " end with " + user.getUserName());
+        //User user = (User) returnVal;
+        System.out.println("方法有返回值后调用 The method " + methodName + " end with " + returnVal);
     }
 
     @AfterThrowing(pointcut = "pointCut()", throwing = "error")

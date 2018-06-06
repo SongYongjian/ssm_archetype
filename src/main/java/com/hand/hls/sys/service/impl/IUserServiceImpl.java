@@ -6,6 +6,7 @@ import com.hand.hls.sys.mapper.UserMapper;
 import com.hand.hls.sys.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service("userService")
 public class IUserServiceImpl implements IUserService {
@@ -17,5 +18,12 @@ public class IUserServiceImpl implements IUserService {
     public User getUserById(int id) {
         return userMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<User> selectAll() {
+        return userMapper.selectAll();
+    }
+
+
 
 }
