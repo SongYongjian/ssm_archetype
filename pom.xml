@@ -171,7 +171,6 @@
             <artifactId>logback-ext-spring</artifactId>
             <version>0.1.1</version>
         </dependency>
-
         <!--mybatis依赖 -->
         <dependency>
             <groupId>org.mybatis</groupId>

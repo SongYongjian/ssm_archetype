@@ -13,7 +13,9 @@ import java.util.List;
 @Aspect
 public class LoggingAspect {
 
-    @Pointcut("execution(*  com.hand.hls.sys.service.impl.*.*(..))")
+    //@Pointcut("execution(*  com.hand.hls.sys.service.impl.*.*(..))")
+
+    @Pointcut("execution(*  com.hand.hls.sys.service.impl.IUserServiceImpl.*(..))")
     public void pointCut() {
     }
 
