@@ -24,6 +24,10 @@ public class IUserServiceImpl implements IUserService {
         return userMapper.selectAll();
     }
 
+    @Override
+    public User insertSelective(User user) {
+        return userMapper.insertSelective(user);
+    }
 
 
 }

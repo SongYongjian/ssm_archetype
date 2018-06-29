@@ -8,5 +8,6 @@ public interface IUserService {
 
     User getUserById(int id);
     List<User> selectAll();
+    User insertSelective(User user);
 }
 
