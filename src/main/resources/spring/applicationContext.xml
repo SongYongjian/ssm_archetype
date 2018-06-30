@@ -82,7 +82,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <!-- 注册QuartzJobFactory -->
     <bean id="quartzJobFactory" class="com.hand.hls.util.component.QuartzJobFactory"></bean>
 
-    <!-- 主定时计划 -->
+    <!-- 主定时计划 延迟一秒启动，每6秒执行一次-->
     <bean id="managerTriggerBean"
           class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
         <property name="jobDetail" ref="methodInvokingJobDetailFactoryBean"/>

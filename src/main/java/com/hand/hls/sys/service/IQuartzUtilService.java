@@ -18,6 +18,7 @@ public interface IQuartzUtilService {
 
     Scheduler getScheduler();
 
-    // 主工作需要保持名称唯一
-    List<String> jobNames = new ArrayList<String>();
+
+
+    List<String> getJobNames();
 }

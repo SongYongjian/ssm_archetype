@@ -8,6 +8,8 @@ import com.hand.hls.util.component.SpringContextUtil;
 import com.hand.hls.util.component.UUIDGenerator;
 import org.quartz.*;
 import org.quartz.impl.StdScheduler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,13 @@ import java.util.List;
 
 @Service("quartzUtilService")
 public class IQuartzUtilServiceImpl implements IQuartzUtilService {
-    // 公用Scheduler
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    ScheduleJobMapper scheduleJobMapper;
+
+    // 公用Scheduler（在工程启动时，初始化，单例模式）
     @Override
     public Scheduler getScheduler() {
         Scheduler scheduler = (StdScheduler) SpringContextUtil.getApplicationContext()
@@ -25,8 +33,13 @@ public class IQuartzUtilServiceImpl implements IQuartzUtilService {
         return scheduler;
     }
 
-    @Autowired
-    ScheduleJobMapper scheduleJobMapper;
+    // 公用jobNames （在工程启动时，初始化，单例模式） 主工作需要保持名称唯一
+    List<String> jobNames = new ArrayList<String>();
+
+    @Override
+    public List<String> getJobNames() {
+        return jobNames;
+    }
 
     @Override
     public String getScheduleJobName(String jobName) {
@@ -75,7 +88,7 @@ public class IQuartzUtilServiceImpl implements IQuartzUtilService {
          */
         getScheduler().standby(); //暂时停止 任务都安排完之后统一启动 解决耗时任务按照顺序部署后执行紊乱的问题
         getScheduler().scheduleJob(jobDetail, trigger);// 注入到管理类
-        //logger.info("子:" + job.getJobGroup() + "." + job.getJobName() + "创建完毕");
+        logger.info("子:" + job.getJobGroup() + "." + job.getJobName() + "创建完毕");
     }
 
     @Override

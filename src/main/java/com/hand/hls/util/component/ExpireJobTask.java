@@ -4,6 +4,10 @@ import com.hand.hls.sys.service.IUserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * 静态job applicationContext.xml 配置
+ */
+
 public class ExpireJobTask {
     @Autowired
     IUserService userService;

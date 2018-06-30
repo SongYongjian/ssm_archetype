@@ -5,7 +5,6 @@ import java.util.List;
 import com.hand.hls.sys.dto.ScheduleJob;
 import com.hand.hls.sys.mapper.ScheduleJobMapper;
 import com.hand.hls.sys.service.IQuartzUtilService;
-import org.apache.log4j.Logger;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.DisallowConcurrentExecution;
@@ -14,6 +13,8 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 
@@ -27,11 +28,10 @@ public class QuartzJobFactory {// 实现的是无状态的Job
     @Autowired
     IQuartzUtilService iQuartzUtilService;
 
-
-    private Logger logger = Logger.getLogger(QuartzJobFactory.class);
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * @Note : 扫描数据库,查看是否有计划任务的变动
+     * @Note : 扫描数据库,查看是否有计划任务的变动，每次6秒扫描一次数据库 applicationContext.xml
      */
     public void arrageScheduleJob() {
         try {
@@ -95,7 +95,7 @@ public class QuartzJobFactory {// 实现的是无状态的Job
      * @throws Exception
      */
     public void createSheduler(Scheduler scheduler, ScheduleJob job) throws Exception {
-        // 在工作状态可用时,即job_status = 1 ,开始创建
+        //在工作状态可用时,即job_status = 1 ,开始创建
         if (job.getJobStatus().equals("1")) {
             // 新建一个基于Spring的管理Job类
             MethodInvokingJobDetailFactoryBean methodInvJobDetailFB = new MethodInvokingJobDetailFactoryBean();
@@ -118,8 +118,8 @@ public class QuartzJobFactory {// 实现的是无状态的Job
             JobDetail jobDetail = methodInvJobDetailFB.getObject();// 动态
             jobDetail.getJobDataMap().put("scheduleJob", job);
             //jobName存入到队列 每隔一段时间就会扫描所以需要时检测
-            if (!iQuartzUtilService.jobNames.contains(job.getJobName())) {
-                iQuartzUtilService.jobNames.add(job.getJobName());
+            if (!iQuartzUtilService.getJobNames().contains(job.getJobName())) {
+                iQuartzUtilService.getJobNames().add(job.getJobName());
             }
 
             // 表达式调度构建器
