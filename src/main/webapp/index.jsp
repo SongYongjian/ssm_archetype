@@ -2,6 +2,6 @@
 <!doctype html>
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>SSM-ARCHETYPE START</h2>
 </body>
 </html>

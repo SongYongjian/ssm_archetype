@@ -31,7 +31,7 @@ public class QuartzJobFactory {// 实现的是无状态的Job
     private Logger logger = Logger.getLogger(QuartzJobFactory.class);
 
     /**
-     * @Note : 扫面数据库,查看是否有计划任务的变动
+     * @Note : 扫描数据库,查看是否有计划任务的变动
      */
     public void arrageScheduleJob() {
         try {
