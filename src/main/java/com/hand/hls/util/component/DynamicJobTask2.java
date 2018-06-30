@@ -21,19 +21,19 @@ public class DynamicJobTask2 {
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public synchronized void birth() {
-        logger.trace(df.format(new Date()) + "---------->人出生");
+        logger.info(df.format(new Date()) + "---------->人出生");
         String mainJob = iQuartzUtilService.getScheduleJobName("people_birth");
         iQuartzUtilService.executeChildJobs(mainJob);
     }
 
     public synchronized void life() {
-        logger.trace(df.format(new Date()) + "---------->人生活");
+        logger.info(df.format(new Date()) + "---------->人生活");
         String mainJob = iQuartzUtilService.getScheduleJobName("people_life");
         iQuartzUtilService.executeChildJobs(mainJob);
     }
 
     public synchronized void death() {
-        logger.trace(df.format(new Date()) + "---------->人死亡");
+        logger.info(df.format(new Date()) + "---------->人死亡");
         String mainJob = iQuartzUtilService.getScheduleJobName("people_death");
         iQuartzUtilService.executeChildJobs(mainJob);
     }
