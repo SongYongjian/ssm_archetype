@@ -18,7 +18,5 @@ public interface IQuartzUtilService {
 
     Scheduler getScheduler();
 
-
-
     List<String> getJobNames();
 }

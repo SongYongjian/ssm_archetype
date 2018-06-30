@@ -62,16 +62,16 @@ comment on column QUARTZ_SCHEDULEJOB.child_jobs
 
 
 insert into QUARTZ_SCHEDULEJOB (id, job_name, job_status, cron_expression, concurrent, description, job_group, target_object, target_method, is_spring_bean, clazz, child_jobs)
-values ('01', 'car_starting', '0', '0/5 * * * * ?', '0', '车辆启动', 'car', 'car', 'starting', '1', null, '03,02');
+values ('01', 'car_starting', '0', '0/5 * * * * ?', '0', '车辆启动', 'car', 'dynamicJobTask1', 'starting', '1', null, '03,02');
 insert into QUARTZ_SCHEDULEJOB (id, job_name, job_status, cron_expression, concurrent, description, job_group, target_object, target_method, is_spring_bean, clazz, child_jobs)
-values ('02', 'car_running', '1', '0/30 * * * * ?', '0', '车辆开动', 'car', 'car', 'running', '1', null, '06,05');
+values ('02', 'car_running', '1', '0/30 * * * * ?', '0', '车辆开动', 'car', 'dynamicJobTask1', 'running', '1', null, '06,05');
 insert into QUARTZ_SCHEDULEJOB (id, job_name, job_status, cron_expression, concurrent, description, job_group, target_object, target_method, is_spring_bean, clazz, child_jobs)
-values ('03', 'car_stop', '0', '0/3 * * * * ?', '0', '车辆停止', 'car', 'car', 'stop', '1', null, null);
+values ('03', 'car_stop', '0', '0/3 * * * * ?', '0', '车辆停止', 'car', 'dynamicJobTask1', 'stop', '1', null, null);
 insert into QUARTZ_SCHEDULEJOB (id, job_name, job_status, cron_expression, concurrent, description, job_group, target_object, target_method, is_spring_bean, clazz, child_jobs)
-values ('04', 'people_birth', '0', '0/6 * * * * ?', '0', '人出生', 'people', 'people', 'birth', '1', null, '01');
+values ('04', 'people_birth', '0', '0/6 * * * * ?', '0', '人出生', 'people', 'dynamicJobTask2', 'birth', '1', null, '01');
 insert into QUARTZ_SCHEDULEJOB (id, job_name, job_status, cron_expression, concurrent, description, job_group, target_object, target_method, is_spring_bean, clazz, child_jobs)
-values ('05', 'people_life', '0', '0/3 * * * * ?', '0', '人生活', 'people', 'people', 'life', '1', null, null);
+values ('05', 'people_life', '0', '0/3 * * * * ?', '0', '人生活', 'people', 'dynamicJobTask2', 'life', '1', null, null);
 insert into QUARTZ_SCHEDULEJOB (id, job_name, job_status, cron_expression, concurrent, description, job_group, target_object, target_method, is_spring_bean, clazz, child_jobs)
-values ('06', 'people_death', '0', '0/4 * * * * ?', '0', '人死亡', 'people', 'people', 'death', '1', null, null);
+values ('06', 'people_death', '0', '0/4 * * * * ?', '0', '人死亡', 'people', 'dynamicJobTask2', 'death', '1', null, null);
 insert into QUARTZ_SCHEDULEJOB (id, job_name, job_status, cron_expression, concurrent, description, job_group, target_object, target_method, is_spring_bean, clazz, child_jobs)
 values ('07', 'out', '0', '0/4 * * * * ?', '0', 'outout', 'outout', 'testreflectionClazz', 'testreflectionClazz', '0', 'com.cn.model.TestreflectionClazz', null);
