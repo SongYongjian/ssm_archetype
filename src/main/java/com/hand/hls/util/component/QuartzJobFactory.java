@@ -1,6 +1,10 @@
 package com.hand.hls.util.component;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 import com.hand.hls.sys.dto.ScheduleJob;
 import com.hand.hls.sys.mapper.ScheduleJobMapper;
@@ -34,24 +38,30 @@ public class QuartzJobFactory {// 实现的是无状态的Job
      * @Note : 扫描数据库,查看是否有计划任务的变动，每次6秒扫描一次数据库 applicationContext.xml
      */
     public void arrageScheduleJob() {
-        try {
-            List<ScheduleJob> jobList = scheduleJobMapper.getAllScheduleJobs();
-            if (jobList.size() != 0) {
-                for (ScheduleJob job : jobList) {
-                    // Keys are composed of both a name and group, and the name  must be unique within the group
-                    TriggerKey triggerKey = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());
-                    // 获取trigger
-                    CronTrigger trigger = (CronTrigger) iQuartzUtilService.getScheduler().getTrigger(triggerKey);
-                    // 不存在，创建一个
-                    if (null == trigger) {
-                        createSheduler(iQuartzUtilService.getScheduler(), job);
-                    } else {// Trigger已存在，那么更新相应的定时设置
-                        updateScheduler(iQuartzUtilService.getScheduler(), job, triggerKey, trigger);
+        //读取配置文件
+        ResourceBundle resource = ResourceBundle.getBundle("spring/config");
+        String enabled = resource.getString("quartz.enabled");
+
+        if ("true".equals(enabled)) {
+            try {
+                List<ScheduleJob> jobList = scheduleJobMapper.getAllScheduleJobs();
+                if (jobList.size() != 0) {
+                    for (ScheduleJob job : jobList) {
+                        // Keys are composed of both a name and group, and the name  must be unique within the group
+                        TriggerKey triggerKey = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());
+                        // 获取trigger
+                        CronTrigger trigger = (CronTrigger) iQuartzUtilService.getScheduler().getTrigger(triggerKey);
+                        // 不存在，创建一个
+                        if (null == trigger) {
+                            createSheduler(iQuartzUtilService.getScheduler(), job);
+                        } else {// Trigger已存在，那么更新相应的定时设置
+                            updateScheduler(iQuartzUtilService.getScheduler(), job, triggerKey, trigger);
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

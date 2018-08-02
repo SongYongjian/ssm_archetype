@@ -1,9 +1,8 @@
 package com.hand.hls.util.component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 import com.hand.hls.sys.dto.User;
 import com.hand.hls.sys.service.IUserService;
@@ -31,16 +30,21 @@ public class StartAddCacheListener implements ApplicationListener<ContextRefresh
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        //spring 启动的时候缓存
-        if (event.getApplicationContext().getDisplayName().equals("Root WebApplicationContext")) {
-            System.out.println("\n\n\n_________\n\n缓存数据 \n\n ________\n\n\n\n");
+        //读取配置文件
+        ResourceBundle resource = ResourceBundle.getBundle("spring/config");
+        String enabled = resource.getString("quartz.enabled");
 
-            List<User> userList = userService.selectAll();
-            Map<Integer, User> userMap = new HashMap<Integer, User>();
-            for (int i = 0; i < userList.size(); i++) {
-                userMap.put(userList.get(i).getId(), userList.get(i));
+        if ("true".equals(enabled)) {
+            //spring 启动的时候缓存
+            if (event.getApplicationContext().getDisplayName().equals("Root WebApplicationContext")) {
+                System.out.println("\n\n\n_________\n\n缓存数据 \n\n ________\n\n\n\n");
+                List<User> userList = userService.selectAll();
+                Map<Integer, User> userMap = new HashMap<Integer, User>();
+                for (int i = 0; i < userList.size(); i++) {
+                    userMap.put(userList.get(i).getId(), userList.get(i));
+                }
+                redisCache.setCacheIntegerMap("userMap", userMap);
             }
-            redisCache.setCacheIntegerMap("userMap", userMap);
         }
     }
 }
