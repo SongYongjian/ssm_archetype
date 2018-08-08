@@ -42,8 +42,8 @@ public class UserController {
         //获取用户名和密码
         String username = user.getUserName();
         String password = user.getPassword();
-        //些处横板从数据库中获取对用户名和密码后进行判断
-        if (username != null && username.equals("admin") && password != null && password.equals("admin")) {
+        User checkUser = userService.getUserByName(username);
+        if (checkUser != null &&  checkUser.getPassword().equals(password)) {
             //将用户对象添加到Session中
             session.setAttribute("USER_SESSION", user);
             //重定向到主页面的跳转方法
