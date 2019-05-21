@@ -48,7 +48,7 @@
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.12</log4j.version>
         <mysql.version>5.1.46</mysql.version>
-        <oracle.version>12.1.0.1.0</oracle.version>
+        <!--<oracle.version>12.1.0.1.0</oracle.version>-->
         <quartz.version>2.2.3</quartz.version>
         <jedis.version>2.9.0</jedis.version>
         <spring.redis.version>1.7.0.RELEASE</spring.redis.version>
@@ -133,11 +133,11 @@
         </dependency>
 
         <!-- oracle驱动包 -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc7</artifactId>
             <version>${oracle.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!-- alibaba data source 相关jar包-->
         <dependency>

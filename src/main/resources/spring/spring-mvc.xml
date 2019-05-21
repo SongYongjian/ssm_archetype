@@ -46,12 +46,12 @@
     <mvc:default-servlet-handler/>
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
+    <mvc:resources mapping="/view/**" location="/WEB-INF/view/"/>
 
 
     <!-- 对模型视图添加前后缀 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
-
+          p:prefix="/WEB-INF/view/" p:suffix=".html"/>
 
     <!--配置拦截器-->
     <mvc:interceptors>
