@@ -38,10 +38,13 @@
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
 		<property name="dataSource" ref="dynamicDataSource"></property>
 	</bean>
+
 	<!-- 配置SqlSessionTemplate -->
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-    </bean>
+	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		  destroy-method="close" scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
 	<!-- 配置扫描包，加载mapper代理对象 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.irs.mapper"></property>
